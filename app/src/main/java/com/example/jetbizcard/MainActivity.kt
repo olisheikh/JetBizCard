@@ -15,6 +15,10 @@ import androidx.compose.material.Card
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.shape.CircleShape
+import android.media.Image
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,11 +49,22 @@ fun CreateBizCard(){
                 .width(300.dp)
                 .height(400.dp)
                 .padding(10.dp),
-            backgroundColor = Color.Green,
             elevation = 10.dp,
             shape = RoundedCornerShape(20.dp),
 
         ){
+            Surface(
+                modifier = Modifier
+                    .size(150.dp)
+                    .padding(5.dp),
+                color = MaterialTheme.colors.onSurface.copy(alpha = 0.4f),
+                elevation = 4.dp,
+                shape = CircleShape,
+
+            ){
+                Image(painter = painterResource(id = R.drawable.profile_img),
+                      contentDescription = "Profile Image")
+            }
 
         }
 
