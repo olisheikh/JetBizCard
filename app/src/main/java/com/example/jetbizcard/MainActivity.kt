@@ -20,6 +20,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
 import androidx.compose.material.Divider
+import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,18 +63,41 @@ fun CreateBizCard(){
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ){
-                createProfileImage()
+                CreateProfileImage()
+
                 Divider(
                     thickness = 10.dp,
                     color = Color.Red
                 )
+
+                CreateInfo()
             }
         }
     }
 }
 
 @Composable
-fun createProfileImage(
+fun CreateInfo(){
+    Column(){
+        Text(
+            text = "Miles P.",
+            style = MaterialTheme.typography.h3,
+            color = MaterialTheme.colors.primaryVariant
+        )
+        Text(
+            text = "Jetpack Compose programmer",
+            modifier = Modifier.padding(3.dp)
+        )
+        Text(
+            text = "@jetpack.com",
+            modifier = Modifier.padding(2.dp),
+            style = MaterialTheme.typography.subtitle1
+        )
+    }
+}
+
+@Composable
+fun CreateProfileImage(
     modifier: Modifier = Modifier
 ){
     Surface(
