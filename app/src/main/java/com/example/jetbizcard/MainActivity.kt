@@ -16,9 +16,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.shape.CircleShape
-import android.media.Image
 import androidx.compose.foundation.Image
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
+import androidx.compose.material.Divider
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,28 +50,47 @@ fun CreateBizCard(){
                 .width(300.dp)
                 .height(400.dp)
                 .padding(10.dp),
+            backgroundColor = Color.Green,
             elevation = 10.dp,
             shape = RoundedCornerShape(20.dp),
 
         ){
-            Surface(
+            Column(
                 modifier = Modifier
-                    .size(150.dp)
-                    .padding(5.dp),
-                color = MaterialTheme.colors.onSurface.copy(alpha = 0.4f),
-                elevation = 4.dp,
-                shape = CircleShape,
-
+                    .height(300.dp)
+                    .padding(top = 5.dp),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally,
             ){
-                Image(painter = painterResource(id = R.drawable.profile_img),
-                      contentDescription = "Profile Image")
+                createProfileImage()
+                Divider(
+                    thickness = 10.dp,
+                    color = Color.Red
+                )
             }
-
         }
-
     }
 }
 
+@Composable
+fun createProfileImage(
+    modifier: Modifier = Modifier
+){
+    Surface(
+        modifier = Modifier
+            .size(150.dp)
+            .padding(5.dp),
+        color = MaterialTheme.colors.onSurface.copy(alpha = 0.4f),
+        elevation = 4.dp,
+        shape = CircleShape,
+
+        ){
+        Image(
+            painter = painterResource(id = R.drawable.profile_img),
+            contentDescription = "Profile Image"
+        )
+    }
+}
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
