@@ -4,23 +4,24 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.jetbizcard.ui.theme.JetBizCardTheme
-import androidx.compose.material.Card
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.Image
+import androidx.compose.material.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
-import androidx.compose.material.Divider
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +42,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun CreateBizCard(){
+    val buttonClickedState = remember{
+        mutableStateOf(false)
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -51,7 +56,7 @@ fun CreateBizCard(){
                 .width(300.dp)
                 .height(400.dp)
                 .padding(10.dp),
-            backgroundColor = Color.Green,
+            backgroundColor = Color.Gray,
             elevation = 10.dp,
             shape = RoundedCornerShape(20.dp),
 
@@ -71,7 +76,61 @@ fun CreateBizCard(){
                 )
 
                 CreateInfo()
+
+                Button(
+                    onClick = {
+                        buttonClickedState.value = !buttonClickedState.value
+
+                    },
+                    modifier = Modifier.padding(10.dp)
+                ) {
+                    Text(
+                        text = "Portfolio",
+                        style = MaterialTheme.typography.button
+                    )
+                }
+                if (buttonClickedState.value){
+                    Content()
+                }else{
+                    Box(){
+
+                    }
+                }
             }
+        }
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun Content(){
+    Box(
+        modifier = Modifier
+            .fillMaxHeight()
+            .fillMaxWidth()
+            .padding(5.dp)
+    ){
+        Surface(
+            modifier = Modifier
+                .padding(3.dp)
+                .fillMaxHeight()
+                .fillMaxWidth(),
+            border = BorderStroke(
+                width = 2.dp,
+                color = Color.LightGray
+            ),
+        ){
+            Portfolio(data = listOf("Project 1", "Project 2", "Project 3"))
+        }
+    }
+}
+
+@Composable
+fun Portfolio(data: List<String>){
+    LazyColumn{
+        items(data){item ->
+           Text(
+               text = item
+           )
         }
     }
 }
@@ -115,7 +174,7 @@ fun CreateProfileImage(
         )
     }
 }
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     JetBizCardTheme {
