@@ -22,6 +22,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.foundation.background
+import androidx.compose.ui.text.font.FontWeight
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,9 +131,34 @@ fun Content(){
 fun Portfolio(data: List<String>){
     LazyColumn{
         items(data){item ->
-           Text(
-               text = item
-           )
+           Card(
+               modifier = Modifier
+                   .padding(7.dp)
+                   .fillMaxWidth(),
+               shape = RectangleShape,
+               backgroundColor = Color.Blue,
+               elevation = 4.dp
+           ){
+               Row(
+                   modifier = Modifier
+                       .padding(8.dp)
+                       .background(MaterialTheme.colors.surface)
+                       .padding(7.dp)
+               ){
+                    CreateProfileImage(modifier = Modifier
+                        .size(100.dp))
+                    Column(modifier = Modifier
+                        .padding(7.dp)
+                        .align(alignment = Alignment.CenterVertically)){
+
+                        Text(text = item, fontWeight = FontWeight.Bold)
+                        Text(text = "A great project",
+                            style = MaterialTheme.typography.body2)
+
+                    }
+               }
+
+           }
         }
     }
 }
@@ -170,7 +198,8 @@ fun CreateProfileImage(
         ){
         Image(
             painter = painterResource(id = R.drawable.profile_img),
-            contentDescription = "Profile Image"
+            contentDescription = "Profile Image",
+            modifier = modifier.size(100.dp)
         )
     }
 }
